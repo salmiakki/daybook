@@ -1,4 +1,4 @@
-name: Daybook
+name: Daybook Build
 
 on: [push]
 
