@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name="daybook",
-    version="0.1",
+    version="0.1.2",
     description="URL hoarder's helper utility",
     url="https://github.com/salmiakki/daybook",
     author="Lesha Pak",
