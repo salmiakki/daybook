@@ -11,7 +11,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-DEFAULT_PATH = os.getenv("DAYBOOK_DEFAULT_PATH")
+DEFAULT_PATH = os.getenv("DAYBOOK_DEFAULT_PATH", "")
 SHOW_HOW_MANY_LAST_LINES = int(os.getenv("DAYBOOK_SHOW_HOW_MANY_LAST_LINES", 10))
 
 
@@ -54,14 +54,16 @@ def add_dateline(old_content, date: Optional[datetime.date] = None) -> str:
 def main():
     arg_parser = argparse.ArgumentParser()
     arg_parser.add_argument("-p", "--path", type=Path, help="path to the daybook file", default=Path(DEFAULT_PATH))
-    # arg_parser.add_argument("-v", "--verbose", type=Path, action="store_true")
     arg_parser.add_argument("line", help="the line to add")
     args = arg_parser.parse_args()
 
     line = args.line
     path: Path = args.path
     if path:
-        logger.info(f"Adding to {path}")
+        logger.info(f"Adding to {path}...")
+        if not path.exists():
+            logger.warning(f"{path} doesn't exist, creating...")
+            path.touch()
         old_content = path.read_text()
         new_content = add_dateline(old_content)
         new_content = add_line(new_content, line)
