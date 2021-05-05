@@ -1,7 +1,7 @@
 import datetime
 from textwrap import dedent
 
-from daybook import add_dateline
+from daybook.daybook import add_dateline
 
 
 def test_add_dateline():
